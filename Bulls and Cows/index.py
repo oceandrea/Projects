@@ -7,7 +7,6 @@ class CowsAndBulls:
         self.code = []
         self.window = None
         self.height = 250
-        self.guess = None
         self.guesses = 10
         self.label_y = 225
         self.input_label = None
@@ -48,8 +47,7 @@ class CowsAndBulls:
         label = Label(self.window, text='ENTER GUESS', font='Calibri')
         self.input_label = label
         label.place(x=150, y=75, anchor=CENTER)
-        self.guess = StringVar()
-        input_for_label = Entry(self.window, textvariable=self.guess, font='Calibri')
+        input_for_label = Entry(self.window, font='Calibri')
         self.input = input_for_label
         input_for_label.place(x=150, y=125, anchor=CENTER)
         submit_guess_btn = Button(self.window, text='SUBMIT', font='Calibri', command=self.play)
@@ -70,7 +68,7 @@ class CowsAndBulls:
             self.start_new_game()
         else:
             self.guesses -= 1
-            guess = list(self.guess.get())
+            guess = list(self.input.get())
             bulls = 0
             cows = 0
 
@@ -106,6 +104,6 @@ class CowsAndBulls:
         retry_btn.place(x=150, y=150, anchor=CENTER)
 
     def new_game_setup(self):
-        self.window.update()
+        self.window.destroy()
         game = self.new_game()
         game.setup()
