@@ -12,9 +12,9 @@
         <form class="form" method="post">
             {% csrf_token %}
             {{ form }}
-            <button class="btn" type="submit">Register</button>
-            <span style="display: block; margin-top: 20px" class="block-display">Have an account?
-                <a style="display: block; color: blueviolet" href="{% url 'login' %}">Log in here</a>
+            <button class="btn block-display" type="submit">Register</button>
+            <span class="block-display" style="margin-top: 20px">Have an account?
+                <a class="block-display" style="color: blueviolet" href="{% url 'login' %}">Log in here</a>
             </span>
         </form>
         </div>
