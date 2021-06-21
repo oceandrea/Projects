@@ -13,7 +13,7 @@
             <h1>Hello, {{ profile_user.username.capitalize }}!</h1>
             <h5>This is your profile</h5>
         {% else %}
-            <h1>This is {{ profile_user.username.capitalize }} profile</h1>
+            <h1>This is {{ profile_user.username.capitalize }}'s profile</h1>
         {% endif %}
 
         {% if profile_user.userprofile.profile_picture %}
@@ -26,8 +26,8 @@
         {% if own_profile %}
             <div class="w-50 m-auto">
                 <form class="form" action="" method="post" enctype="multipart/form-data">
-                    {{ form }}
                     {% csrf_token %}
+                    {{ form }}
                     <button class="btn">Upload</button>
                 </form>
             </div>
