@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href={% static 'common/css/clear.css' %}>
+    <link rel="stylesheet" href={% static 'common/css/main.css' %}>
+    <link rel="icon" type="image/png" href={% static 'common/img/favicon.png' %}>
+    {% block scripts %}
+    {% endblock %}
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+<div id="root">
+    {% include 'shared/navigation.html' %}
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

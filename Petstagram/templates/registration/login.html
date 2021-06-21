@@ -1,0 +1,21 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'common/css/forms.css' %}">
+{% endblock %}
+{% block scripts %}
+    <script defer src="{% static 'common/js/forms.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Login</h1>
+        <form class="form" method="post" action="">
+            {{ form }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Login</button>
+            <span style="display: block; margin-top: 20px" class="block-display">Don't have an account?
+                <a style="display: block; color: blueviolet" href="{% url 'register' %}">Register here</a>
+            </span>
+        </form>
+    </div>
+{% endblock %}

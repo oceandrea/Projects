@@ -1,0 +1,34 @@
+{% extends 'shared/base.html' %} }}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href={% static 'common/css/home.css' %}>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div class="home-container">
+            <img alt=""
+                 src={% static 'common/img/home_pic.png' %}>
+            <div>
+                <header>
+                    <h1>Welcome to Petstagram</h1>
+                    <p>Share your pets photos.</p>
+                </header>
+                <hr>
+                <div class="actions">
+                    <div class="sign">
+                        <p>Already have an account? <br>
+                            <a class='btn' href="{% url 'login' %}">Log in</a></p>
+                    </div>
+                    <div class="sign">
+                        <p> Do not have an account? <br>
+                            <a class='btn' href="{% url 'register' %}">Register</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href={% static 'pets/css/all_pets.css' %}>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1 class='text-center'>All pet photos</h1>
+        {% if pets %}
+            {% include 'shared/all_pets.html' %}
+        {% else %}
+            <p>No results</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

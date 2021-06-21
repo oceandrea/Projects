@@ -1,0 +1,18 @@
+.form-field {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.form {
+    width: 25%;
+    margin: auto;
+}
+
+.form label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: block;
+}

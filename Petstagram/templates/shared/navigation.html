@@ -1,0 +1,36 @@
+<nav class="navbar">
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link" href={% url 'home' %}>Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href={% url 'all pets' %}>All Pet Photos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href={% url 'create pet' %}>Create Pet</a>
+        </li>
+        {% if user.is_authenticated %}
+            <ul class="top-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user profile' %}">{{ user.username.capitalize }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}?next=/">Logout</a>
+                </li>
+            </ul>
+
+        {% else %}
+            <ul class="top-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={% url 'register' %}>Register</a>
+                </li>
+            </ul>
+        {% endif %}
+        <li class="nav-item">
+            <a target="blank" class="nav-link" href="/admin">Admin</a>
+        </li>
+    </ul>
+</nav>

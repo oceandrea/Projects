@@ -1,0 +1,54 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href={% static 'pets/css/all_pets.css' %}>
+    <link rel="stylesheet" href={% static 'common/css/forms.css' %}>
+{% endblock %}
+{% block scripts %}
+    <script defer src="{% static 'common/js/forms.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="text-center">
+        {% if own_profile %}
+            <h1>Hello, {{ profile_user.username.capitalize }}!</h1>
+            <h5>This is your profile</h5>
+        {% else %}
+            <h1>This is {{ profile_user.username.capitalize }} profile</h1>
+        {% endif %}
+
+        {% if profile_user.userprofile.profile_picture %}
+            <img class="rounded-img" src="{{ profile_user.userprofile.profile_picture.url }}"
+                 alt="Generic placeholder image">
+        {% else %}
+            <img class="rounded-img" src="{% static 'common/img/profile-default.jpg' %}"
+                 alt="Generic placeholder image">
+        {% endif %}
+        {% if own_profile %}
+            <div class="w-50 m-auto">
+                <form class="form" action="" method="post" enctype="multipart/form-data">
+                    {{ form }}
+                    {% csrf_token %}
+                    <button class="btn">Upload</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if pets %}
+        {% if own_profile %}
+            <h2 class='text-center'>These are your pet photos</h2>
+        {% else %}
+            <h2 class='text-center'>These are {{ profile_user.username.capitalize }}'s pet photos</h2>
+        {% endif %}
+        {% include 'shared/all_pets.html' %}
+    {% else %}
+        <div class="text-center">
+            {% if own_profile %}
+                <h2>You have no pets</h2>
+                <a href="{% url 'create pet' %}" class="btn">Add Pet Photo</a>
+            {% else %}
+                <h2>{{ profile_user.username.capitalize }} has no pets</h2>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

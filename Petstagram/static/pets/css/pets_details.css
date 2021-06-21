@@ -1,0 +1,62 @@
+.fa {
+    color: blueviolet;
+}
+
+.all-details {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.detail-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+.details-img, .details-img-container {
+    width: 100%;
+    display: inherit;
+    border-radius: 5px;
+}
+
+.details-text-container {
+    margin-left: 50px;
+}
+
+.pet-main-info {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.pet-main-info u {
+    text-decoration: underline;
+}
+
+.pet-description, .like-pet, .all-likes {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.edit {
+    background-color: #3cb043;
+}
+
+a.edit:hover, button.edit:hover {
+    background-color: #028a0f;
+}
+
+.delete {
+    background-color: #9b1003;
+}
+
+a.delete:hover, button.delete:hover {
+    background-color: #7a1712;
+}
+
+.btn-display {
+    display: inline-block;
+}

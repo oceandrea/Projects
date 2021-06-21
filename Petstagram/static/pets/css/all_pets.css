@@ -1,0 +1,31 @@
+.card {
+    display: inline-block;
+    margin: 38px;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 5px;
+    width: 280px;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card img {
+    width: inherit;
+    height: 200px;
+    border-radius: inherit;
+}
+
+.row {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+}

@@ -1,0 +1,57 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href={% static 'pets/css/pets_details.css' %}>
+    <link rel="stylesheet" href={% static 'common/css/comments.css' %}>
+{% endblock %}
+{% block content %}
+    <div class="all-details">
+        <div class="detail-container">
+            <div class="details-img-container">
+                <img class="details-img" alt="" src={{ pet.image.url }}>
+            </div>
+            <div class="details-text-container">
+                <div>
+                    <h5 class="pet-main-info"><u>Type</u>: {{ pet.type }}</h5>
+                    <h5 class="pet-main-info"><u>Name</u>: {{ pet.name }}</h5>
+                    <h5 class="pet-main-info"><u>Age</u>: {{ pet.age }}</h5>
+                    <h5 class="pet-main-info"><u>Owner</u>: {{ pet.user.user.username.capitalize }}</h5>
+                </div>
+                <p class="pet-description">Description: {{ pet.description }}</p>
+                {% if can_like %}
+                    <a href={% url 'like pet' pet.id %}><i class="fa fa-heart-o like-pet"></i></a>
+                {% endif %}
+                {% if liked %}
+                    <a  href={% url 'like pet' pet.id %}><i class="fa fa-heart like-pet"></i></a>
+                {% endif %}
+                <p class="all-likes">Likes: {{ likes }}</p>
+                {% if is_owner %}
+                    <a class="btn edit" href={% url 'edit pet' pet.id %}>Edit</a>
+                    <a class="btn delete" href={% url 'delete pet' pet.id %}>Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="comment-section">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comments">
+                        <h5><em>{{ comment.user.user.username.capitalize }}: {{ comment.comment }}</em></h5>
+                        <hr>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="comments">
+                    <h3>There are no comments for this pet.</h3>
+                </div>
+            {% endif %}
+            <div class="comment-form">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="btn" type="submit">Add comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

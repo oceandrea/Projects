@@ -1,0 +1,41 @@
+.home-container {
+    background-color: #e9ecef;
+    max-width: 50%;
+    margin: auto;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: lighter;
+}
+
+img {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    margin: auto;
+    padding-top: 20px;
+    align-items: stretch;
+}
+
+.actions p {
+    font-size: 20px;
+}
+
+.sign {
+    /*display: inline-block;*/
+    flex: 50%;
+}
+
+header {
+    padding-bottom: 20px;
+}
+
+header p {
+    font-size: 25px;
+    font-weight: lighter;
+}
