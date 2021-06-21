@@ -6,9 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from accounts.forms import ProfileForm
-from accounts.models import UserProfile
-from pets.models import Pet
+from petstagram.accounts.forms import ProfileForm
+from petstagram.accounts.models import UserProfile
+from petstagram.pets.models import Pet
 
 
 @login_required

@@ -1,6 +1,6 @@
 from django.db import models
 
-from accounts.models import UserProfile
+from petstagram.accounts.models import UserProfile
 
 
 class Pet(models.Model):

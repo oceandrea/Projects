@@ -1,6 +1,6 @@
 from django import forms
 
-from accounts.models import UserProfile
+from petstagram.accounts.models import UserProfile
 
 
 class ProfileForm(forms.ModelForm):

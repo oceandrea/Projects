@@ -1,8 +1,7 @@
 from django.db import models
-from django.utils import timezone
 
-from accounts.models import UserProfile
-from pets.models import Pet
+from petstagram.accounts.models import UserProfile
+from petstagram.pets.models import Pet
 
 
 class Comment(models.Model):

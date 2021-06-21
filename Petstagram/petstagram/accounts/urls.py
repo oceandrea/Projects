@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from accounts.views import show_profile, register
+from petstagram.accounts.views import show_profile, register
 
 urlpatterns = [
     path('', include('django.contrib.auth.urls')),

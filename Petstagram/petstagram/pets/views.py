@@ -3,10 +3,10 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from common.forms import CommentForm
-from common.models import Comment
-from pets.forms import PetCreateForm
-from pets.models import Pet, Like
+from petstagram.common.forms import CommentForm
+from petstagram.common.models import Comment
+from petstagram.pets.forms import PetCreateForm
+from petstagram.pets.models import Pet, Like
 
 
 def pet_all(request):

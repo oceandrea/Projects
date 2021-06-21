@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from pets.models import Like, Pet
+from petstagram.pets.models import Like, Pet
 
 
 class LikeInline(admin.TabularInline):
