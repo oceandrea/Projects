@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from petstagram.common.forms import CommentForm
 from petstagram.common.models import Comment
@@ -51,6 +51,7 @@ def show_pet_details(request, pk):
         'liked': pet.user.user != request.user and request.user in likes,
     }
     return render(request, 'pets/pet_detail.html', context)
+
 
 # class PetDetails(DetailView):
 #     template_name = 'pets/pet_detail.html'
@@ -102,28 +103,28 @@ class CreatePet(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-@login_required
-def edit_pet(request, pk):
-    pet = Pet.objects.get(pk=pk)
-    form = None
-    if request.method == 'POST':
-        form = PetCreateForm(request.POST, request.FILES, instance=pet)
-        old_image = pet.image
-        new_image = 'image' in form.changed_data
-        if form.is_valid():
-            if new_image:
-                os.remove(old_image.path)
-            pet = form.save()
-            pet.save()
-            return redirect('all pets')
-
-    if not form:
-        form = PetCreateForm(instance=pet)
-
-    context = {
-        'form': form,
-    }
-    return render(request, 'pets/pet_edit.html', context)
+# @login_required
+# def edit_pet(request, pk):
+#     pet = Pet.objects.get(pk=pk)
+#     form = None
+#     if request.method == 'POST':
+#         form = PetCreateForm(request.POST, request.FILES, instance=pet)
+#         old_image = pet.image
+#         new_image = 'image' in form.changed_data
+#         if form.is_valid():
+#             if new_image:
+#                 os.remove(old_image.path)
+#             pet = form.save()
+#             pet.save()
+#             return redirect('all pets')
+#
+#     if not form:
+#         form = PetCreateForm(instance=pet)
+#
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'pets/pet_edit.html', context)
 
 
 class EditPet(LoginRequiredMixin, UpdateView):
@@ -140,14 +141,21 @@ class EditPet(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-@login_required
-def delete_pet(request, pk):
-    pet = Pet.objects.get(pk=pk)
-    if request.method == 'POST':
-        pet.delete()
-        return redirect('all pets')
+# @login_required
+# def delete_pet(request, pk):
+#     pet = Pet.objects.get(pk=pk)
+#     if request.method == 'POST':
+#         pet.delete()
+#         return redirect('all pets')
+#
+#     context = {
+#         'pet': pet,
+#     }
+#     return render(request, 'pets/pet_delete.html', context)
 
-    context = {
-        'pet': pet,
-    }
-    return render(request, 'pets/pet_delete.html', context)
+
+class DeletePet(LoginRequiredMixin, DeleteView):
+    template_name = 'pets/pet_delete.html'
+    model = Pet
+    success_url = reverse_lazy('all pets')
+

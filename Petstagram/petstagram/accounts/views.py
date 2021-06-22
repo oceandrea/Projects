@@ -57,7 +57,11 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
         return context
 
-    # TODO old profile pictures should get deleted from media
+    def dispatch(self, request, *args, **kwargs):
+        old_picture = self.get_object().profile_picture
+        if ('profile_picture' in request.FILES or 'profile_picture-clear' in request.POST) and old_picture:
+            os.remove(old_picture.path)
+        return super().dispatch(request, *args, **kwargs)
 
 
 # def register(request):
