@@ -3,6 +3,7 @@ import os
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -35,7 +36,7 @@ from petstagram.pets.models import Pet
 #     return render(request, 'registration/profile.html', context)
 
 
-class ProfileView(UpdateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'registration/profile.html'
     form_class = ProfileForm
     model = UserProfile
@@ -55,6 +56,9 @@ class ProfileView(UpdateView):
         context['pets'] = [pet for pet in Pet.objects.all() if pet.user.user == self.get_object().user]
 
         return context
+
+    # TODO old profile pictures should get deleted from media
+
 
 # def register(request):
 #     form = UserCreationForm()
