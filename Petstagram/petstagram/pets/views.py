@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 
 from petstagram.common.forms import CommentForm
 from petstagram.common.models import Comment
@@ -26,35 +26,68 @@ class AllPets(ListView):
     context_object_name = 'pets'
 
 
-def show_pet_details(request, pk):
-    pet = Pet.objects.get(pk=pk)
-    likes = [like.user.user for like in Like.objects.all() if like.pet == pet]
-    comments = [comment for comment in Comment.objects.all() if comment.pet == pet]
-    form = None
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = Comment(comment=form.cleaned_data['comment'], pet=pet, user=request.user.userprofile)
-            comment.save()
-            return redirect('pet details', pk)
+# def show_pet_details(request, pk):
+#     pet = Pet.objects.get(pk=pk)
+#     likes = [like.user.user for like in Like.objects.all() if like.pet == pet]
+#     comments = [comment for comment in Comment.objects.all() if comment.pet == pet]
+#     form = None
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             comment = Comment(comment=form.cleaned_data['comment'], pet=pet, user=request.user.userprofile)
+#             comment.save()
+#             return redirect('pet details', pk)
+#
+#     if not form:
+#         form = CommentForm()
+#
+#     context = {
+#         'pet': pet,
+#         'likes': len(likes),
+#         'form': form,
+#         'comments': comments,
+#         'is_owner': pet.user.user == request.user,
+#         'can_like': request.user.is_authenticated and pet.user.user != request.user and request.user not in likes,
+#         'liked': pet.user.user != request.user and request.user in likes,
+#     }
+#     return render(request, 'pets/pet_detail.html', context)
 
-    if not form:
-        form = CommentForm()
 
-    context = {
-        'pet': pet,
-        'likes': len(likes),
-        'form': form,
-        'comments': comments,
-        'is_owner': pet.user.user == request.user,
-        'can_like': request.user.is_authenticated and pet.user.user != request.user and request.user not in likes,
-        'liked': pet.user.user != request.user and request.user in likes,
-    }
-    return render(request, 'pets/pet_detail.html', context)
+class CommentCreate(LoginRequiredMixin, FormView):
+    form_class = CommentForm
+    model = Comment
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.pet = Pet.objects.get(pk=self.kwargs['pk'])
+        comment.user = self.request.user.userprofile
+        comment.save()
+        return redirect('pet details', self.kwargs['pk'])
 
 
-# class PetDetails(DetailView):
-#     template_name = 'pets/pet_detail.html'
+class PetDetails(DetailView):
+    template_name = 'pets/pet_detail.html'
+    model = Pet
+    context_object_name = 'pet'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pet = self.get_object()
+        context['form'] = CommentForm()
+
+        # likes = [like.user.user for like in Like.objects.all() if like.pet == pet]
+        likes = pet.like_set.all()
+        context['likes'] = len(likes)
+
+        # comments = [comment for comment in Comment.objects.all() if comment.pet == pet]
+        context['comments'] = pet.comment_set.all()
+
+        context['is_owner'] = pet.user.user == self.request.user
+        context['can_like'] = self.request.user.is_authenticated and pet.user.user != self.request.user and self.request.user not in likes
+
+        context['liked'] = pet.user.user != self.request.user and self.request.user in likes
+
+        return context
 
 
 @login_required
@@ -133,12 +166,12 @@ class EditPet(LoginRequiredMixin, UpdateView):
     model = Pet
     success_url = reverse_lazy('all pets')
 
-    def form_valid(self, form):
-        old_image = self.object.image
-        new_image = 'image' in form.changed_data
-        if new_image:
-            os.remove(old_image.path)
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     old_image = self.object.image
+    #     new_image = 'image' in form.changed_data
+    #     if new_image:
+    #         os.remove(old_image.path)
+    #     return super().form_valid(form)
 
 
 # @login_required
@@ -158,4 +191,3 @@ class DeletePet(LoginRequiredMixin, DeleteView):
     template_name = 'pets/pet_delete.html'
     model = Pet
     success_url = reverse_lazy('all pets')
-

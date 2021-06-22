@@ -46,7 +46,7 @@
                 </div>
             {% endif %}
             <div class="comment-form">
-                <form method="post">
+                <form method="post" action="{% url 'comment' pet.id %}">
                     {% csrf_token %}
                     {{ form }}
                     <button class="btn" type="submit">Add comment</button>
