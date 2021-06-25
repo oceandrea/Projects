@@ -1,12 +1,4 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
-
-
-# def landing_page(request):
-#     context = {
-#         'title': 'Petstagram',
-#     }
-#     return render(request, 'landing_page.html', context)
 
 
 class HomeView(TemplateView):
