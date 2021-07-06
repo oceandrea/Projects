@@ -21,7 +21,7 @@ class CommentCreate(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         comment = form.save(commit=False)
-        comment.pet = Pet.objects.get(pk=self.kwargs['pk'])
+        comment.pet_details = Pet.objects.get(pk=self.kwargs['pk'])
         comment.user = self.request.user.userprofile
         comment.save()
         return redirect('pet details', self.kwargs['pk'])
