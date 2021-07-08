@@ -5,5 +5,5 @@ from petstagram.pets.models import Pet
 class PetsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
-        # exclude = ('user',)
-        fields = '__all__'
+        exclude = ('user',)
+        # fields = '__all__'

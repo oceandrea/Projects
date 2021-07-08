@@ -1,24 +1,21 @@
+from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from petstagram.api.serializers import PetsSerializer
 from petstagram.pets.models import Pet
 
 
-class AllPetsApiView(APIView):
-    @staticmethod
-    def get(request):
-        pets = Pet.objects.all()
-        serializer = PetsSerializer(pets, many=True)
-        return Response(serializer.data)
+class AllPetsApiView(generics.ListCreateAPIView):
+    queryset = Pet.objects.all()
+    serializer_class = PetsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
-    @staticmethod
-    def post(request):
-        serializer = PetsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user.userprofile)
 
 
 class PetDetailsApiView(APIView):
