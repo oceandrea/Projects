@@ -1,2 +1,2 @@
 # Small-Projects
-Small projects using different Python libraries and frameworks
+Small projects using different Python and JS libraries and frameworks
