@@ -9,9 +9,24 @@ const Items = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await fetch('https://react-app-4ee0b-default-rtdb.firebaseio.com/cats.json');
-            const respData = await response.json();
-            setData(respData);
+//             const response = await fetch('https://react-app-4ee0b-default-rtdb.firebaseio.com/cats.json');
+//             const respData = await response.json();
+//             setData(respData);
+            
+            try {
+                const response = await fetch('https://react-app-4ee0b-default-rtdb.firebaseio.com/cats.json');
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message)
+                }
+
+                const respData = await response.json();
+                setData(respData);
+
+            } catch (e) {
+                return alert(e.message)
+            }
         };
         getData();
     }, [])
