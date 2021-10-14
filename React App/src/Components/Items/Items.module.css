@@ -1,0 +1,39 @@
+.form {
+    padding: 1%;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form label {
+    text-align: center;
+    display: block;
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: #5A4866;
+}
+
+.form input {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #6D597A;
+}
+
+.form input:focus {
+    outline: 2px solid #6D597AA1;
+}
+
+.search {
+    width: 50%;
+    margin: 15px auto 0;
+}
+
+.result {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    flex-wrap: wrap;
+    padding-left: 20px;
+    padding-right: 20px;
+}

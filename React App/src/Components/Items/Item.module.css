@@ -1,0 +1,33 @@
+.card {
+    width: 285px;
+    display: inline-block;
+    border-radius: 10px;
+    height: 375px;
+    box-shadow: 0 1px 3px #6D597A;
+    list-style: none;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #fefefe;
+}
+
+.card img {
+    width: inherit;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 200px;
+}
+
+.info {
+    padding: 0 20px;
+}
+
+.info p {
+    text-align: justify;
+    margin: 0;
+}
+
+.info h3 {
+    margin: 5px 0 5px;
+    text-align: center;
+}

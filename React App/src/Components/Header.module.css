@@ -1,0 +1,31 @@
+.header {
+    background-color: #B56576;
+    padding: 20px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.home-button {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fefefe;
+    margin: 0;
+}
+
+.username {
+    display: inline-block;
+    color: #fefefe;
+}
+
+.username p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.username span {
+    margin-right: 15px;
+}
